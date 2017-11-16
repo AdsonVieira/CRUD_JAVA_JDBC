@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import br.unifacs.ltp2.config.Environment;
 
 /**
  *
@@ -21,19 +22,16 @@ import javax.swing.JOptionPane;
  */
 public class ConnectionFactory {
     
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL   = "jdbc:mysql://127.0.0.1:3306/crud_java";
-    private static final String USER  = "root";
-    private static final String PASSWORD  = "root";
     
+
     /**
     *
     * classe que realiza a conexão com o banco
     */
     public static Connection getConnection(){
         try {
-            Class.forName(DRIVER);
-            return  (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
+            Class.forName(Environment.DRIVER);
+            return  (Connection) DriverManager.getConnection(Environment.URL, Environment.USER, Environment.PASSWORD);
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão");
             throw new  RuntimeException("Erro na conexão", ex);

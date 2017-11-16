@@ -7,6 +7,7 @@ package br.unifcs.ltp2.view;
 
 import br.unifacs.ltp2.dao.ProdutoDAO;
 import br.unifacs.ltp2.model.Produto;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -215,22 +216,28 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonEditarActionPerformed
 
     private void jToggleButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExcluirActionPerformed
-        if(jTableProdutos.getSelectedRow() != -1){
-            Produto produto = new Produto();
-            ProdutoDAO produtoDao = new ProdutoDAO();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Tem certeza que deseja deletar esse produto?","Warning",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            if(jTableProdutos.getSelectedRow() != -1){
+                Produto produto = new Produto();
+                ProdutoDAO produtoDao = new ProdutoDAO();
 
-            produto.setDescricao(jTextFDescricao.getText());
-            produto.setQuantidade(Integer.parseInt(jTextFQuantidade.getText()));
-            produto.setPreco(jTextFValor.getText());
-            produto.setProduto_id((int)jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 0));
+                produto.setDescricao(jTextFDescricao.getText());
+                produto.setQuantidade(Integer.parseInt(jTextFQuantidade.getText()));
+                produto.setPreco(jTextFValor.getText());
+                produto.setProduto_id((int)jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 0));
 
-            produtoDao.delete(produto);
+                produtoDao.delete(produto);
 
-            jTextFDescricao.setText("");
-            jTextFQuantidade.setText("");
-            jTextFValor.setText("");
-            readJTable();
+                jTextFDescricao.setText("");
+                jTextFQuantidade.setText("");
+                jTextFValor.setText("");
+                readJTable();
+            }
         }
+        
+        
     }//GEN-LAST:event_jToggleButtonExcluirActionPerformed
 
     /**
