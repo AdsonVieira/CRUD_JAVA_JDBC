@@ -79,7 +79,12 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jToggleButtonEditar.setText("Editar");
+        jToggleButtonEditar.setText("Atualizar");
+        jToggleButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonEditarActionPerformed(evt);
+            }
+        });
 
         jToggleButtonExcluir.setText("Excluir");
 
@@ -91,6 +96,11 @@ public class main extends javax.swing.JFrame {
                 "Produto Id", "Descrição", "Quantidade", "Valor"
             }
         ));
+        jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,6 +178,36 @@ public class main extends javax.swing.JFrame {
         readJTable();
 
     }//GEN-LAST:event_jToggleButtonCadastrarActionPerformed
+
+    private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
+        // TODO add your handling code here:
+        if(jTableProdutos.getSelectedRow() != -1){
+            jTextFDescricao.setText(jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 1).toString());
+            jTextFQuantidade.setText(jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 2).toString());
+            jTextFValor.setText(jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 3).toString());
+        }
+    }//GEN-LAST:event_jTableProdutosMouseClicked
+
+    private void jToggleButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEditarActionPerformed
+        // TODO add your handling code here:
+        if(jTableProdutos.getSelectedRow() != -1){
+            Produto produto = new Produto();
+            ProdutoDAO produtoDao = new ProdutoDAO();
+
+            produto.setDescricao(jTextFDescricao.getText());
+            produto.setQuantidade(Integer.parseInt(jTextFQuantidade.getText()));
+            produto.setPreco(jTextFValor.getText());
+            produto.setProduto_id((int)jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 0));
+
+            produtoDao.update(produto);
+
+            jTextFDescricao.setText("");
+            jTextFQuantidade.setText("");
+            jTextFValor.setText("");
+            readJTable();
+        }
+        
+    }//GEN-LAST:event_jToggleButtonEditarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -72,5 +72,26 @@ public class ProdutoDAO {
        
         return produtosList;
     }
+    
+    
+    public void update(Produto produto){
+        Connection  con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt =con.prepareStatement("UPDATE produto set descricao = ?, quantidade = ?,preco = ? WHERE produto_id = ?");
+            stmt.setString(1, produto.getDescricao());
+            stmt.setInt(2,produto.getQuantidade());
+            stmt.setString(3, produto.getPreco());
+            stmt.setInt(4, produto.getProduto_id());
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar");
+            throw new  RuntimeException("Erro ao atualizar", ex);
+        }finally{
+            ConnectionFactory.CloseConnection((com.mysql.jdbc.Connection) con, stmt);
+        }
+    }
 
 }
