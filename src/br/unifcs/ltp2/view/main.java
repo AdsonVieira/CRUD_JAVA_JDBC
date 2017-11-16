@@ -87,6 +87,11 @@ public class main extends javax.swing.JFrame {
         });
 
         jToggleButtonExcluir.setText("Excluir");
+        jToggleButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -208,6 +213,25 @@ public class main extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jToggleButtonEditarActionPerformed
+
+    private void jToggleButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExcluirActionPerformed
+        if(jTableProdutos.getSelectedRow() != -1){
+            Produto produto = new Produto();
+            ProdutoDAO produtoDao = new ProdutoDAO();
+
+            produto.setDescricao(jTextFDescricao.getText());
+            produto.setQuantidade(Integer.parseInt(jTextFQuantidade.getText()));
+            produto.setPreco(jTextFValor.getText());
+            produto.setProduto_id((int)jTableProdutos.getValueAt(jTableProdutos.getSelectedRow(), 0));
+
+            produtoDao.delete(produto);
+
+            jTextFDescricao.setText("");
+            jTextFQuantidade.setText("");
+            jTextFValor.setText("");
+            readJTable();
+        }
+    }//GEN-LAST:event_jToggleButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments

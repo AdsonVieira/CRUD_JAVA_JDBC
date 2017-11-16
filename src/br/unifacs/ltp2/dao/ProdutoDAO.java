@@ -93,5 +93,25 @@ public class ProdutoDAO {
             ConnectionFactory.CloseConnection((com.mysql.jdbc.Connection) con, stmt);
         }
     }
+    
+    public void delete(Produto produto){
+        Connection  con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt =con.prepareStatement("delete from produto  WHERE produto_id = ?");
+//            stmt.setString(1, produto.getDescricao());
+//            stmt.setInt(2,produto.getQuantidade());
+//            stmt.setString(3, produto.getPreco());
+            stmt.setInt(1, produto.getProduto_id());
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Produto deletado com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar");
+            throw new  RuntimeException("Erro ao  deletar", ex);
+        }finally{
+            ConnectionFactory.CloseConnection((com.mysql.jdbc.Connection) con, stmt);
+        }
+    }
 
 }
