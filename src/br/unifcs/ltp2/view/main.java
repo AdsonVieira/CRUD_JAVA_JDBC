@@ -5,6 +5,7 @@
  */
 package br.unifcs.ltp2.view;
 
+import br.unifacs.ltp2.config.Environment;
 import br.unifacs.ltp2.dao.ProdutoDAO;
 import br.unifacs.ltp2.model.Produto;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
+        this.setTitle(Environment.Application_NAME);
         readJTable();
     }
 

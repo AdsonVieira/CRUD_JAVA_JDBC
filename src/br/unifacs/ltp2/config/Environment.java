@@ -15,4 +15,6 @@ public class Environment {
     public static final String URL   = "jdbc:mysql://127.0.0.1:3306/crud_java";
     public static final String USER  = "root";
     public static final String PASSWORD  = "";
+    public static final String Application_NAME = "Atividade LTP2";
+
 }
