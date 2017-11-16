@@ -21,16 +21,16 @@ import javax.swing.JOptionPane;
  */
 public class ConnectionFactory {
     
-    private final String DRIVER = "con.mysql.jdbc.Driver";
-    private final String URL   = "jdbc:mysql://localhost:3306/dbmercado";
-    private final String USER  = "root";
-    private final String PASSWORD  = "root";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL   = "jdbc:mysql://127.0.0.1:3306/crud_java";
+    private static final String USER  = "root";
+    private static final String PASSWORD  = "root";
     
     /**
     *
     * classe que realiza a conexão com o banco
     */
-    public Connection getConnection(){
+    public static Connection getConnection(){
         try {
             Class.forName(DRIVER);
             return  (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
